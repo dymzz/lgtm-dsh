@@ -1,0 +1,6 @@
+# lgtm-dsh bundle patch: mount the plugin as a composition row. Mounting it IS
+# the install step — apply() installs @stardeckai/lgtm when the binary is
+# missing — and it also exposes the lgtm_* tools and the settings card.
+- insert:
+    - id: lgtm-dsh
+      name: 'lgtm-dsh'

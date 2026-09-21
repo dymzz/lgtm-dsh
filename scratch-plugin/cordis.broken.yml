@@ -1,0 +1,14 @@
+# Negative control: compose a deliberately broken plugin so the boot log's
+# failure reporting can be observed. Not part of the product.
+#
+#   dsh web --patch ./scratch-plugin/cordis.broken.yml
+#
+# Expected: the boot fails loudly with "1 entry did not activate", which is what
+# makes a silent boot of cordis.yml meaningful — `dsh` requires every entry to
+# activate, so a clean start proves the real plugin imported, resolved its
+# injected services, and returned from `apply()`.
+#
+# Absolute path, per the overlay's hard rule (see cordis.yml).
+- insert:
+    - id: lgtm-dsh-broken-probe
+      name: 'D:/workspace/dsh/lgtm-dsh/scratch-plugin/broken-plugin.mjs'

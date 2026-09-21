@@ -1,0 +1,33 @@
+# Source-debugging overlay: compose lgtm-dsh straight from this checkout, with
+# nothing installed into any profile.
+#
+# Run it exactly as the official guide runs a scratch plugin:
+#
+#   dsh web --patch ./scratch-plugin/cordis.yml
+#
+# Inside a deepseek-harness checkout the command is
+# `pnpm dsh web --patch ./scratch-plugin/cordis.yml` — the `pnpm dsh` form runs
+# that repository's own launcher, so it is only available from a checkout. Where
+# dsh is installed as a package, `dsh` already is that launcher and the `pnpm`
+# prefix is dropped.
+#
+# HARD RULE: the plugin path must be ABSOLUTE. A patch does not change the profile
+# directory the loader resolves module paths against, so a relative path, a
+# symlink, or a mistyped absolute path all fail *silently* — the overlay applies,
+# the row appears in `--dump-config`, and the module simply never loads.
+#
+# Verify the row entered the tree before chasing anything else:
+#
+#   dsh --profile web --patch ./scratch-plugin/cordis.yml --dump-config
+#
+# `--patch` is the highest-priority layer (bundles → profile cordis.patch.yml →
+# $DSH_HOME/cordis.patch.yml → --patch), so this row wins over any same-id row
+# below it.
+#
+# One file carries BOTH halves. `dsh-client-modules` resolves the row's module
+# location and then walks up to the nearest `package.json` — this checkout's —
+# reads `dsh.client` and `exports["./client"]` from it, and serves the browser half
+# from `client/client.js`. No build step, no install.
+- insert:
+    - id: lgtm-dsh
+      name: 'D:/workspace/dsh/lgtm-dsh/index.js'

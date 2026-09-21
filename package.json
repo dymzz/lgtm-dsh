@@ -1,0 +1,73 @@
+{
+  "name": "lgtm-dsh",
+  "version": "0.2.0",
+  "description": "DeepSeek Harness plugin that wraps @stardeckai/lgtm — a Jev-powered linter for tests that pass but prove nothing. Ships the CLI as a dependency, reuses the TypeSafe credential stored in DSH, and exposes lgtm_audit / lgtm_status to the agent.",
+  "type": "module",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client",
+    "cordis.patch.yml",
+    "skills",
+    "setting.png",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "immediately": true
+    }
+  },
+  "scripts": {
+    "test": "node test/smoke.test.js && node test/client.test.js"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "cordis-plugin",
+    "lgtm",
+    "typesafe",
+    "jev",
+    "test-audit"
+  ],
+  "dependencies": {
+    "@stardeckai/lgtm": "^0.3.1"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4",
+    "@deepseek-ai/dsh-skill-filesystem": ">=0.1.0-rc.6",
+    "@deepseek-ai/dsh-tools": ">=0.1.0-rc.6",
+    "@deepseek-ai/schemastery": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-client-ui-primitives": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-client-ui-slots": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  }
+}

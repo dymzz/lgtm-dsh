@@ -1,0 +1,7 @@
+# 换行统一成 LF：全仓库本来就只有 scratch-plugin/fixture/ 那两个样本带了杂散 CRLF，
+# 定死之后跨平台 diff 不会因为换行翻出整文件噪声。Windows 上 core.autocrlf 未设置。
+* text=auto eol=lf
+
+# 以下按二进制对待，禁止任何换行/编码转换。
+*.tgz binary
+*.png binary
