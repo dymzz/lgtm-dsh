@@ -1,10 +1,19 @@
 {
   "name": "lgtm-dsh",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "DeepSeek Harness plugin that wraps @stardeckai/lgtm — a Jev-powered linter for tests that pass but prove nothing. Ships the CLI as a dependency, reuses the TypeSafe credential stored in DSH, and exposes lgtm_audit / lgtm_status to the agent.",
   "type": "module",
   "main": "index.js",
   "license": "MIT",
+  "author": "dymzz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dymzz/lgtm-dsh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dymzz/lgtm-dsh/issues"
+  },
+  "homepage": "https://github.com/dymzz/lgtm-dsh#readme",
   "engines": {
     "node": ">=20"
   },
@@ -22,6 +31,7 @@
     "setting.png",
     "README.md"
   ],
+  "sideEffects": false,
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
@@ -59,15 +69,9 @@
   "peerDependenciesMeta": {
     "@deepseek-ai/cordis": {
       "optional": true
-    },
-    "@deepseek-ai/dsh-client-ui-primitives": {
-      "optional": true
-    },
-    "@deepseek-ai/dsh-client-ui-slots": {
-      "optional": true
-    },
-    "react": {
-      "optional": true
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
