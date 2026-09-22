@@ -44,14 +44,8 @@ jobs:
       - name: Pack
         run: pnpm pack
 
-      - name: Rename tarball
-        id: tarball
-        run: |
-          mv *.tgz lgtm-dsh-${GITHUB_REF_NAME#v}.tgz
-          echo "file=lgtm-dsh-${GITHUB_REF_NAME#v}.tgz" >> $GITHUB_OUTPUT
-
       - name: Publish to npm
-        run: npm publish "${{ steps.tarball.outputs.file }}" --provenance --access public
+        run: npm publish *.tgz --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -60,5 +54,5 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          files: ${{ steps.tarball.outputs.file }}
+          files: "*.tgz"
           generate_release_notes: true

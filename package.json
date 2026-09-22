@@ -1,6 +1,6 @@
 {
   "name": "lgtm-dsh",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "DeepSeek Harness plugin that wraps @stardeckai/lgtm — a Jev-powered linter for tests that pass but prove nothing. Ships the CLI as a dependency, reuses the TypeSafe credential stored in DSH, and exposes lgtm_audit / lgtm_status to the agent.",
   "type": "module",
   "main": "index.js",
