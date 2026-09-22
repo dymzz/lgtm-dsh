@@ -1,10 +1,14 @@
 # lgtm-dsh
 
 lgtm-dsh 是个 DSH 插件，负责自动装好 [lgtm](https://github.com/stardeckai/lgtm)、复用 DSH 里已配好的 Jev，并让 agent 在测试阶段自动调用。
+当前只支持web方式
 
 ## 安装
 
 ```sh
+# 直接安装
+dsh plugin --profile web add lgtm-dsh
+
 # 从本仓库装：clone 或解压后，在仓库根目录执行
 dsh plugin --profile web add .
 
@@ -30,5 +34,7 @@ dsh plugin --profile web add ./lgtm-dsh-*.tgz
 | `actually-test` | 你说「给刚写/刚改的东西补测试」的时候；它指导写测试，并在过程中反复用 `lgtm_audit` 迭代 |
 
 插件权限：它只做四件事——把 `@stardeckai/lgtm` 装进当前 profile 的 `node_modules`、往工具列表注册 `lgtm_status` 和 `lgtm_audit`、把两份 skill 挂进 skill 目录、读 `llm-pi-ai` 里那条路由的 `apiKeyEnv` 并从凭据服务解析出 key。那个 key 不落盘、不进日志、不进工具结果，只出现在它启动的那一个子进程的环境变量里。子进程用调用方会话自己的沙箱策略运行，插件不会给自己提权（往工作区外写会被沙箱拒掉）。它不装全局、不动 PATH、不改 profile 配置、不改 lockfile；联网和写 `node_modules/.cache/lgtm` 缓存都是 lgtm 自己的行为，不由插件代理。
+
+[![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/your-owner/your-plugin-slug)
 
 MIT
