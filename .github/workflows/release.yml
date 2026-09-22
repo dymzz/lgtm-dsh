@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify version matches tag
+        run: |
+          PKG=$(node -p "require('./package.json').version")
+          TAG="${GITHUB_REF_NAME#v}"
+          if [ "$PKG" != "$TAG" ]; then
+            echo "package.json 版本 $PKG 与 tag v$TAG 不一致"
+            exit 1
+          fi
+
+      - name: Test
+        run: pnpm test
+
+      - name: Dry run pack
+        run: npm pack --dry-run
+
+      - name: Pack
+        run: pnpm pack
+
+      - name: Rename tarball
+        id: tarball
+        run: |
+          SRC=$(ls *.tgz | head -n 1)
+          DEST="lgtm-dsh-${GITHUB_REF_NAME#v}.tgz"
+          [ "$SRC" != "$DEST" ] && mv "$SRC" "$DEST"
+          echo "file=$DEST" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          files: ${{ steps.tarball.outputs.file }}
+          generate_release_notes: true
