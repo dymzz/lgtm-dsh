@@ -10,7 +10,7 @@ dsh plugin --profile web add .
 
 # 或者打成 tarball 再装
 npm pack
-dsh plugin --profile web add ./lgtm-dsh-0.2.0.tgz
+dsh plugin --profile web add ./lgtm-dsh-*.tgz
 ```
 
 装完重启 web 服务生效。还没发布到 npm，所以 `dsh plugin add lgtm-dsh` 暂时用不了。
