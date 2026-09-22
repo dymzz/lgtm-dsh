@@ -58,7 +58,7 @@
     "test-audit"
   ],
   "dependencies": {
-    "@stardeckai/lgtm": "^0.3.1"
+    "@stardeckai/lgtm": "^0.5.1"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": ">=4",
