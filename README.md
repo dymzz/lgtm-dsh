@@ -37,4 +37,12 @@ dsh plugin --profile web add ./lgtm-dsh-*.tgz
 
 [![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/your-owner/your-plugin-slug)
 
-MIT
+## 相关项目
+
+- [dsh-plugin.org](https://dsh-plugin.org) — 插件市场官网，数据同源
+- [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) — DeepSeek Harness 本体
+- [stardeckai/lgtm](https://github.com/stardeckai/lgtm) — 插件添加的工具
+
+## 许可
+
+[MIT](LICENSE) © DSH Plugin Hub contributors
